@@ -185,6 +185,9 @@ export function Sidebar() {
             })}
           </div>
         </nav>
+        
+        {/* Spacer to push content to bottom */}
+        <div className="flex-1" />
 
         {/* ===== BOTTOM SECTION ===== */}
         <div className="relative z-10 px-3 pb-5">
