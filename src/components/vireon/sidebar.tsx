@@ -234,7 +234,7 @@ export function Sidebar() {
           </button>
 
           {/* Branding */}
-          <p className="text-[10px] text-muted-foreground/25 text-center mt-3 font-medium">
+          <p className="text-[9px] text-muted-foreground/20 text-center mt-3 font-medium">
             v1.0 · Built by Arefin
           </p>
         </div>

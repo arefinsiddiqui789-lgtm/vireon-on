@@ -621,7 +621,7 @@ export function AuthPage() {
 
           {/* Footer */}
           <div className="mt-8 lg:mt-10 text-center">
-            <p className="text-xs text-muted-foreground/40">
+            <p className="text-[9px] text-muted-foreground/30 font-medium tracking-wide">
               Built with ❤️ by Arefin Siddiqui · Dhaka, Bangladesh
             </p>
           </div>
