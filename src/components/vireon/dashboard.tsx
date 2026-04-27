@@ -122,9 +122,17 @@ export function DashboardSection() {
     () => studyTasks.filter((t) => t.dayOfWeek === new Date().getDay()),
     [studyTasks]
   );
+  const todayStr = (() => {
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  })();
+
   const todayGoals = useMemo(
-    () => dailyGoals.filter((g) => g.date === new Date().toISOString().split("T")[0]),
-    [dailyGoals]
+    () => dailyGoals.filter((g) => g.date === todayStr),
+    [dailyGoals, todayStr]
   );
   const todayGymExercises = useMemo(
     () => gymExercises.filter((e) => e.dayOfWeek === new Date().getDay()),

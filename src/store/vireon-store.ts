@@ -242,7 +242,7 @@ export const useVireonStore = create<VireonState>()(
         const today = getTodaysDate();
         const state = get();
         const todayGoals = state.dailyGoals.filter((g) => g.date === today);
-        if (todayGoals.length >= 3) return; // Max 3 goals per day
+        if (todayGoals.length >= 5) return; // Max 5 goals per day
         set((state) => ({
           dailyGoals: [
             ...state.dailyGoals,
