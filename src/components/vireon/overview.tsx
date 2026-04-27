@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useVireonStore, type DaySnapshot, DAYS_OF_WEEK } from "@/store/vireon-store";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "sonner";
 import {
   Card,
   CardHeader,
@@ -78,6 +79,7 @@ export function OverviewSection() {
   } = useVireonStore();
 
   const [expandedDates, setExpandedDates] = useState<Set<string>>(new Set());
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
   const todayStr = getLocalDateString();
 
   // Auto-snapshot yesterday on mount and clean old snapshots
@@ -86,9 +88,151 @@ export function OverviewSection() {
     clearOldSnapshots();
   }, []);
 
+  // Generate PDF from snapshot data
+  const generatePDF = async (snapshot: DaySnapshot) => {
+    setIsGeneratingPDF(true);
+    const toastId = toast.loading("Generating your productivity report...");
+    
+    try {
+      // Load jsPDF from CDN dynamically
+      if (!(window as any).jspdf) {
+        const script = document.createElement("script");
+        script.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+        document.head.appendChild(script);
+        await new Promise((resolve) => (script.onload = resolve));
+      }
+
+      const { jsPDF } = (window as any).jspdf;
+      const doc = new jsPDF();
+      const margin = 20;
+      let y = margin;
+
+      // Header
+      doc.setFillColor(59, 109, 250); // Primary color
+      doc.rect(0, 0, 210, 40, "F");
+      
+      doc.setTextColor(255, 255, 255);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(24);
+      doc.text("VIREON BRO", margin, 25);
+      
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "normal");
+      doc.text("DAILY PRODUCTIVITY REPORT", margin, 32);
+
+      // Section: Info
+      y = 55;
+      doc.setTextColor(50, 50, 50);
+      doc.setFontSize(12);
+      doc.setFont("helvetica", "bold");
+      doc.text(`Date: ${snapshot.date}`, margin, y);
+      
+      const total = snapshot.studyTasks.length + snapshot.dailyGoals.length + snapshot.gymExercises.length;
+      const completed = snapshot.studyTasks.filter((t: any) => t.completed).length + 
+                      snapshot.dailyGoals.filter((g: any) => g.completed).length + 
+                      snapshot.gymExercises.filter((e: any) => e.completed).length;
+      const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
+      
+      doc.text(`Overall Completion: ${rate}% (${completed}/${total} items)`, 130, y);
+      
+      y += 15;
+      doc.setDrawColor(200, 200, 200);
+      doc.line(margin, y - 5, 190, y - 5);
+
+      // Section: Study Tasks
+      doc.setFontSize(14);
+      doc.setTextColor(16, 185, 129); // Emerald
+      doc.text("STUDY TASKS", margin, y);
+      y += 8;
+      doc.setFontSize(10);
+      doc.setTextColor(80, 80, 80);
+      doc.setFont("helvetica", "normal");
+      
+      if (snapshot.studyTasks.length === 0) {
+        doc.text("No tasks scheduled for this day.", margin + 5, y);
+        y += 7;
+      } else {
+        snapshot.studyTasks.forEach((t) => {
+          const status = t.completed ? "[X]" : "[ ]";
+          doc.text(`${status} ${t.subject}: ${t.title}`, margin + 5, y);
+          y += 7;
+        });
+      }
+
+      // Section: Daily Goals
+      y += 10;
+      doc.setFontSize(14);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(20, 184, 166); // Teal
+      doc.text("DAILY GOALS", margin, y);
+      y += 8;
+      doc.setFontSize(10);
+      doc.setTextColor(80, 80, 80);
+      doc.setFont("helvetica", "normal");
+      
+      if (snapshot.dailyGoals.length === 0) {
+        doc.text("No goals set for this day.", margin + 5, y);
+        y += 7;
+      } else {
+        snapshot.dailyGoals.forEach((g) => {
+          const status = g.completed ? "[X]" : "[ ]";
+          doc.text(`${status} ${g.title}`, margin + 5, y);
+          y += 7;
+        });
+      }
+
+      // Section: Gym
+      y += 10;
+      doc.setFontSize(14);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(225, 29, 72); // Rose
+      doc.text("GYM ROUTINE", margin, y);
+      y += 8;
+      doc.setFontSize(10);
+      doc.setTextColor(80, 80, 80);
+      doc.setFont("helvetica", "normal");
+      
+      if (snapshot.gymExercises.length === 0) {
+        doc.text("No gym exercises scheduled.", margin + 5, y);
+        y += 7;
+      } else {
+        snapshot.gymExercises.forEach((e) => {
+          const status = e.completed ? "[X]" : "[ ]";
+          doc.text(`${status} ${e.name} (${e.sets}x${e.reps})`, margin + 5, y);
+          y += 7;
+        });
+      }
+      
+      if (snapshot.gymLogged) {
+        doc.setTextColor(16, 185, 129);
+        doc.setFont("helvetica", "bold");
+        doc.text("WORKOUT COMPLETED & LOGGED", margin + 5, y);
+        y += 7;
+      }
+
+      // Footer
+      doc.setFontSize(8);
+      doc.setTextColor(150, 150, 150);
+      doc.text("Generated by Vireon Bro Productivity System", 105, 285, { align: "center" });
+
+      doc.save(`Vireon_Overview_${snapshot.date}.pdf`);
+      toast.success("PDF report downloaded successfully!", { id: toastId });
+    } catch (error) {
+      console.error("PDF Error:", error);
+      toast.error("Failed to generate PDF.", { id: toastId });
+    } finally {
+      setIsGeneratingPDF(false);
+    }
+  };
+
   // Take a snapshot of today right now (manual)
-  const handleSnapshotToday = () => {
+  const handleSnapshotToday = async () => {
     saveDaySnapshot(todayStr);
+    const updatedSnapshots = useVireonStore.getState().dailySnapshots;
+    const currentSnapshot = updatedSnapshots[todayStr];
+    if (currentSnapshot) {
+      await generatePDF(currentSnapshot);
+    }
   };
 
   // Toggle date expansion
@@ -171,10 +315,20 @@ export function OverviewSection() {
         <div>
           <Button
             onClick={handleSnapshotToday}
+            disabled={isGeneratingPDF}
             className="gap-2 shadow-lg shadow-primary/20"
           >
-            <Camera size={16} />
-            Save Today&apos;s Snapshot
+            {isGeneratingPDF ? (
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                Processing...
+              </div>
+            ) : (
+              <>
+                <Camera size={16} />
+                Save Snapshot & PDF
+              </>
+            )}
           </Button>
         </div>
       </motion.div>
