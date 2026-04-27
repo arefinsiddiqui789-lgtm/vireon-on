@@ -196,7 +196,7 @@ export function OverviewSection() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-10 sm:grid-cols-15 gap-1.5">
+            <div className="grid grid-cols-7 sm:grid-cols-10 md:grid-cols-15 gap-1.5 md:gap-2">
               {last30Days.map((date) => {
                 const snapshot = dailySnapshots[date];
                 const totalItems = snapshot
