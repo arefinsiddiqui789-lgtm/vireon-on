@@ -95,7 +95,7 @@ export function Sidebar() {
         <div className="absolute -bottom-20 -left-20 w-40 h-40 rounded-full bg-primary/[0.03] blur-3xl pointer-events-none" />
 
         {/* ===== LOGO AREA ===== */}
-        <div className="relative z-10 px-5 pt-6 pb-4">
+        <div className={cn("relative z-10 px-5 pb-4 transition-all duration-300", sidebarOpen ? "pt-20 md:pt-6" : "pt-6")}>
           <div className="flex items-center gap-3">
             <div className="relative w-11 h-11 rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-br from-primary to-primary/70 shadow-lg shadow-primary/20 shrink-0">
               <Image
