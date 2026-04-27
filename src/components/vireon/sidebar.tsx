@@ -136,17 +136,20 @@ export function Sidebar() {
                       ? "py-2.5 px-3"
                       : "py-2 px-3 hover:py-2.5"
                   )}
-                  whileHover={{ x: 2 }}
                   transition={{ duration: 0.15 }}
                 >
                   {/* Active background pill */}
-                  {isActive && (
-                    <motion.div
-                      layoutId="sidebar-active-bg"
-                      className="absolute inset-0 rounded-xl dark:bg-white/[0.06] bg-primary/[0.08] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] shadow-[inset_0_1px_0_rgba(59,109,250,0.1)]"
-                      transition={{ type: "spring", stiffness: 400, damping: 35 }}
-                    />
-                  )}
+                  <AnimatePresence>
+                    {isActive && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 rounded-xl dark:bg-white/[0.06] bg-primary/[0.08] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] shadow-[inset_0_1px_0_rgba(59,109,250,0.1)]"
+                        transition={{ duration: 0.2 }}
+                      />
+                    )}
+                  </AnimatePresence>
 
                   {/* Icon bubble */}
                   <div
@@ -173,13 +176,17 @@ export function Sidebar() {
                   </span>
 
                   {/* Active dot */}
-                  {isActive && (
-                    <motion.div
-                      layoutId="sidebar-active-dot"
-                      className="relative z-10 ml-auto w-1.5 h-1.5 rounded-full bg-primary"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  )}
+                  <AnimatePresence>
+                    {isActive && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="relative z-10 ml-auto w-1.5 h-1.5 rounded-full bg-primary"
+                        transition={{ duration: 0.2 }}
+                      />
+                    )}
+                  </AnimatePresence>
                 </motion.button>
               );
             })}

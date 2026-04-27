@@ -155,8 +155,8 @@ export function AuthPage() {
         {/* Content */}
         <div className="relative z-10 flex flex-col justify-center px-16 xl:px-24">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
             {/* Logo */}
@@ -219,8 +219,8 @@ export function AuthPage() {
         <div className="absolute -bottom-10 -left-10 w-32 h-32 rounded-full bg-primary/5 blur-3xl" />
 
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.4 }}
           className="relative z-10 px-6 pt-14 pb-8 flex flex-col items-center text-center"
         >
@@ -258,8 +258,8 @@ export function AuthPage() {
       {/* ===== RIGHT: Auth Form ===== */}
       <div className="flex-1 flex items-center justify-center p-6 md:p-12 lg:pt-0">
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.4 }}
           className="w-full max-w-md"
         >
@@ -268,9 +268,9 @@ export function AuthPage() {
             {view === "login" && (
               <motion.div
                 key="login"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
                 <div className="mb-8">
@@ -364,9 +364,9 @@ export function AuthPage() {
             {view === "signup" && (
               <motion.div
                 key="signup"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
                 <div className="mb-6">
@@ -498,9 +498,9 @@ export function AuthPage() {
             {view === "verify-sent" && (
               <motion.div
                 key="verify-sent"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
                 className="text-center"
               >
@@ -551,9 +551,9 @@ export function AuthPage() {
             {view === "verify-success" && (
               <motion.div
                 key="verify-success"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
                 className="text-center"
               >
@@ -581,9 +581,9 @@ export function AuthPage() {
             {view === "verify-failed" && (
               <motion.div
                 key="verify-failed"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
                 className="text-center"
               >
