@@ -370,26 +370,24 @@ export function OverviewSection() {
                     className={cn(
                       "aspect-square rounded-md transition-all duration-200 relative group cursor-default flex items-center justify-center",
                       isCurrentDay && "ring-2 ring-primary ring-offset-1 ring-offset-background",
-                      !snapshot && "bg-muted/30",
-                      snapshot && intensity === 0 && "bg-muted/50",
-                      snapshot && intensity > 0 && intensity <= 0.25 && "bg-rose-500/30 text-rose-600 dark:text-rose-400",
-                      snapshot && intensity > 0.25 && intensity <= 0.5 && "bg-amber-500/30 text-amber-600 dark:text-amber-400",
-                      snapshot && intensity > 0.5 && intensity <= 0.75 && "bg-emerald-500/40 text-emerald-600 dark:text-emerald-400",
-                      snapshot && intensity > 0.75 && "bg-primary shadow-[0_0_10px_rgba(59,130,246,0.3)] text-white"
+                      !snapshot || completedItems === 0 ? "bg-muted/30" : "",
+                      completedItems === 1 && "bg-amber-500/30 text-amber-600 dark:text-amber-400",
+                      completedItems === 2 && "bg-emerald-500/40 text-emerald-600 dark:text-emerald-400",
+                      completedItems >= 3 && "bg-primary shadow-[0_0_10px_rgba(59,130,246,0.3)] text-white"
                     )}
-                    title={`${formatDateShort(date)}: ${completedItems}/${totalItems} completed`}
+                    title={`${formatDateShort(date)}: ${completedItems} tasks completed`}
                   >
                     {/* Day number inside cell */}
                     <span className={cn(
                       "text-[9px] font-bold transition-opacity pointer-events-none",
-                      intensity > 0.75 ? "opacity-100" : "opacity-30 group-hover:opacity-100"
+                      completedItems >= 3 ? "opacity-100" : "opacity-30 group-hover:opacity-100"
                     )}>
                       {new Date(date + "T00:00:00").getDate()}
                     </span>
 
                     {/* Tooltip on hover/active */}
                     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded-md bg-popover border text-[10px] whitespace-nowrap opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity pointer-events-none z-20 shadow-lg">
-                      {formatDateShort(date)} • {completedItems}/{totalItems}
+                      {formatDateShort(date)} • {completedItems} {completedItems === 1 ? "task" : "tasks"}
                     </div>
                   </div>
                 );
@@ -398,23 +396,19 @@ export function OverviewSection() {
             <div className="flex flex-wrap items-center justify-end gap-3 mt-4 text-[10px] font-medium text-muted-foreground">
               <div className="flex items-center gap-1">
                 <div className="w-3 h-3 rounded-sm bg-muted/30" />
-                <span>Empty</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded-sm bg-rose-500/30" />
-                <span>Critical</span>
+                <span>Empty (0)</span>
               </div>
               <div className="flex items-center gap-1">
                 <div className="w-3 h-3 rounded-sm bg-amber-500/30" />
-                <span>Low</span>
+                <span>Low (1)</span>
               </div>
               <div className="flex items-center gap-1">
                 <div className="w-3 h-3 rounded-sm bg-emerald-500/40" />
-                <span>Good</span>
+                <span>Good (2)</span>
               </div>
               <div className="flex items-center gap-1">
                 <div className="w-3 h-3 rounded-sm bg-primary shadow-[0_0_5px_rgba(59,130,246,0.3)]" />
-                <span>Peak</span>
+                <span>Peak (3+)</span>
               </div>
             </div>
           </CardContent>
