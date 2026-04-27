@@ -54,8 +54,15 @@ function getDayName(dateStr: string): string {
   return DAYS_OF_WEEK[d.getDay()];
 }
 
+function getLocalDateString(date: Date = new Date()): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 function isToday(dateStr: string): boolean {
-  return dateStr === new Date().toISOString().split("T")[0];
+  return dateStr === getLocalDateString();
 }
 
 export function OverviewSection() {
@@ -71,7 +78,7 @@ export function OverviewSection() {
   } = useVireonStore();
 
   const [expandedDates, setExpandedDates] = useState<Set<string>>(new Set());
-  const todayStr = new Date().toISOString().split("T")[0];
+  const todayStr = getLocalDateString();
 
   // Auto-snapshot yesterday on mount and clean old snapshots
   useEffect(() => {
@@ -132,7 +139,7 @@ export function OverviewSection() {
     for (let i = 29; i >= 0; i--) {
       const d = new Date();
       d.setDate(d.getDate() - i);
-      days.push(d.toISOString().split("T")[0]);
+      days.push(getLocalDateString(d));
     }
     return days;
   }, []);

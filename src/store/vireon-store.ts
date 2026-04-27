@@ -124,8 +124,15 @@ export const MOTIVATIONAL_QUOTES = {
   ],
 };
 
+function getLocalDateString(date: Date = new Date()): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 function getTodaysDate(): string {
-  return new Date().toISOString().split("T")[0];
+  return getLocalDateString();
 }
 
 function getTimeCategory(): "morning" | "day" | "night" {
@@ -211,11 +218,17 @@ export const useVireonStore = create<VireonState>()(
           studyTasks: [...state.studyTasks, { ...task, id: generateId() }],
         })),
       toggleStudyTask: (id) =>
-        set((state) => ({
-          studyTasks: state.studyTasks.map((t) =>
+        set((state) => {
+          const updated = state.studyTasks.map((t) =>
             t.id === id ? { ...t, completed: !t.completed } : t
-          ),
-        })),
+          );
+          // Auto-sync today's snapshot if it exists
+          const today = getTodaysDate();
+          if (state.dailySnapshots[today]) {
+            setTimeout(() => get().saveDaySnapshot(today), 0);
+          }
+          return { studyTasks: updated };
+        }),
       deleteStudyTask: (id) =>
         set((state) => ({
           studyTasks: state.studyTasks.filter((t) => t.id !== id),
@@ -242,6 +255,11 @@ export const useVireonStore = create<VireonState>()(
           const updated = state.dailyGoals.map((g) =>
             g.id === id ? { ...g, completed: !g.completed } : g
           );
+          // Auto-sync today's snapshot if it exists
+          const today = getTodaysDate();
+          if (state.dailySnapshots[today]) {
+            setTimeout(() => get().saveDaySnapshot(today), 0);
+          }
           return { dailyGoals: updated };
         }),
       deleteDailyGoal: (id) =>
@@ -284,12 +302,17 @@ export const useVireonStore = create<VireonState>()(
           gymExercises: state.gymExercises.filter((e) => e.id !== id),
         })),
       toggleGymLog: (date) =>
-        set((state) => ({
-          gymLogs: {
+        set((state) => {
+          const updatedLogs = {
             ...state.gymLogs,
             [date]: !state.gymLogs[date],
-          },
-        })),
+          };
+          // Auto-sync snapshot if it exists for this date
+          if (state.dailySnapshots[date]) {
+            setTimeout(() => get().saveDaySnapshot(date), 0);
+          }
+          return { gymLogs: updatedLogs };
+        }),
 
       // Code Snippets
       codeSnippets: [],
@@ -397,7 +420,7 @@ export const useVireonStore = create<VireonState>()(
         const state = get();
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
-        const yesterdayStr = yesterday.toISOString().split("T")[0];
+        const yesterdayStr = getLocalDateString(yesterday);
 
         // Only snapshot if not already snapshotted
         if (!state.dailySnapshots[yesterdayStr]) {
@@ -408,7 +431,7 @@ export const useVireonStore = create<VireonState>()(
         const state = get();
         const cutoff = new Date();
         cutoff.setDate(cutoff.getDate() - 31);
-        const cutoffStr = cutoff.toISOString().split("T")[0];
+        const cutoffStr = getLocalDateString(cutoff);
 
         const filtered: Record<string, DaySnapshot> = {};
         for (const [date, snapshot] of Object.entries(state.dailySnapshots)) {
