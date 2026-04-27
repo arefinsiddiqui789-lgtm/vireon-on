@@ -160,14 +160,14 @@ export function AuthPage() {
             transition={{ duration: 0.5 }}
           >
             {/* Logo */}
-            <div className="flex items-center gap-4 mb-10">
-              <div className="w-14 h-14 rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-br from-primary to-primary/70 shadow-xl shadow-primary/30">
+            <div className="flex items-center gap-5 mb-10">
+              <div className="w-20 h-20 overflow-hidden flex items-center justify-center shrink-0">
                 <Image
-                  src="/logo.png"
+                  src="/logo.svg"
                   alt="Vireon Logo"
-                  width={36}
-                  height={36}
-                  className="object-contain"
+                  width={80}
+                  height={80}
+                  className="object-contain filter auto-invert-logo"
                 />
               </div>
               <div>
@@ -224,13 +224,13 @@ export function AuthPage() {
           transition={{ duration: 0.4 }}
           className="relative z-10 px-6 pt-14 pb-8 flex flex-col items-center text-center"
         >
-          <div className="w-16 h-16 rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-br from-primary to-primary/70 shadow-xl shadow-primary/30 mb-4">
+          <div className="w-24 h-24 overflow-hidden flex items-center justify-center mb-4">
             <Image
-              src="/logo.png"
+              src="/logo.svg"
               alt="Vireon Logo"
-              width={40}
-              height={40}
-              className="object-contain"
+              width={96}
+              height={96}
+              className="object-contain filter auto-invert-logo"
             />
           </div>
           <h1 className="text-2xl font-bold text-foreground font-azonix tracking-wider">Vireon</h1>

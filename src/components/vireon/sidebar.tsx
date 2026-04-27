@@ -94,16 +94,15 @@ export function Sidebar() {
         {/* Subtle corner glow */}
         <div className="absolute -bottom-20 -left-20 w-40 h-40 rounded-full bg-primary/[0.03] blur-3xl pointer-events-none" />
 
-        {/* ===== LOGO AREA ===== */}
         <div className={cn("relative z-10 px-5 pb-4 transition-all duration-300", sidebarOpen ? "pt-20 md:pt-6" : "pt-6")}>
           <div className="flex items-center gap-3">
-            <div className="relative w-11 h-11 rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-br from-primary to-primary/70 shadow-lg shadow-primary/20 shrink-0">
+            <div className="relative w-14 h-14 overflow-hidden flex items-center justify-center shrink-0">
               <Image
-                src="/logo.png"
+                src="/logo.svg"
                 alt="Vireon Logo"
-                width={30}
-                height={30}
-                className="object-contain"
+                width={50}
+                height={50}
+                className="object-contain filter auto-invert-logo"
               />
             </div>
             <div>

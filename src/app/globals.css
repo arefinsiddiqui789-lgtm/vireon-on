@@ -263,3 +263,15 @@
 .particle {
   animation: particle-drift 4s ease-in-out infinite;
 }
+
+.auto-invert-logo {
+  @apply transition-all duration-300;
+}
+
+.light .auto-invert-logo {
+  filter: brightness(0);
+}
+
+.dark .auto-invert-logo {
+  filter: brightness(0) invert(1);
+}
