@@ -368,7 +368,7 @@ export function OverviewSection() {
                   <div
                     key={date}
                     className={cn(
-                      "aspect-square rounded-md transition-all duration-200 relative group cursor-default",
+                      "aspect-square rounded-md transition-all duration-200 relative group cursor-default flex items-center justify-center",
                       isCurrentDay && "ring-2 ring-primary ring-offset-1 ring-offset-background",
                       !snapshot && "bg-muted/30",
                       snapshot && intensity === 0 && "bg-muted/50",
@@ -378,8 +378,13 @@ export function OverviewSection() {
                     )}
                     title={`${formatDateShort(date)}: ${completedItems}/${totalItems} completed`}
                   >
-                    {/* Tooltip on hover */}
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded-md bg-popover border text-[10px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 shadow-lg">
+                    {/* Day number inside cell */}
+                    <span className="text-[9px] font-bold opacity-30 group-hover:opacity-100 transition-opacity pointer-events-none">
+                      {new Date(date + "T00:00:00").getDate()}
+                    </span>
+
+                    {/* Tooltip on hover/active */}
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded-md bg-popover border text-[10px] whitespace-nowrap opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity pointer-events-none z-10 shadow-lg">
                       {formatDateShort(date)} • {completedItems}/{totalItems}
                     </div>
                   </div>
