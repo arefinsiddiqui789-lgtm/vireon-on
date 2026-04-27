@@ -201,7 +201,7 @@ export function CodeCompilerSection() {
             <Code2 size={24} className="text-primary" />
           </div>
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold">Code Compiler</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold font-azonix tracking-wider">Code Compiler</h1>
             <p className="text-sm text-muted-foreground">
               Write, run, and practice code
             </p>

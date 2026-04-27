@@ -153,7 +153,7 @@ export function OverviewSection() {
             <CalendarDays size={28} />
           </div>
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight font-azonix tracking-wider">
               Overview
             </h2>
             <p className="text-sm text-muted-foreground">

@@ -171,8 +171,8 @@ export function AuthPage() {
                 />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-foreground">Vireon</h1>
-                <p className="text-sm text-muted-foreground">CSE Productivity Hub</p>
+                <h1 className="text-3xl font-bold text-foreground font-azonix tracking-wider">Vireon</h1>
+                <p className="text-sm text-muted-foreground uppercase tracking-[0.2em] font-medium opacity-70">CSE Productivity Hub</p>
               </div>
             </div>
 
@@ -233,8 +233,8 @@ export function AuthPage() {
               className="object-contain"
             />
           </div>
-          <h1 className="text-2xl font-bold text-foreground">Vireon</h1>
-          <p className="text-xs text-muted-foreground mt-1">CSE Productivity Hub</p>
+          <h1 className="text-2xl font-bold text-foreground font-azonix tracking-wider">Vireon</h1>
+          <p className="text-xs text-muted-foreground mt-1 uppercase tracking-widest opacity-70">CSE Productivity Hub</p>
 
           {/* Feature pills */}
           <div className="flex flex-wrap justify-center gap-2 mt-4">

@@ -107,7 +107,7 @@ export function Sidebar() {
               />
             </div>
             <div>
-              <h1 className="text-[17px] font-bold text-foreground leading-tight">
+              <h1 className="text-[17px] font-bold text-foreground leading-tight font-azonix tracking-wider">
                 Vireon
               </h1>
               <p className="text-[10px] text-muted-foreground font-medium tracking-wide">

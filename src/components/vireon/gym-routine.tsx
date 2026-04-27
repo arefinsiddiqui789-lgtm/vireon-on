@@ -299,7 +299,7 @@ export function GymRoutineSection() {
           <Dumbbell size={28} />
         </div>
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight font-azonix tracking-wider">
             Gym Routine
           </h2>
           <p className="text-muted-foreground text-sm mt-1 flex items-center gap-1.5">

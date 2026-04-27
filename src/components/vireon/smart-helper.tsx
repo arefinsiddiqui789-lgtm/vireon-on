@@ -93,7 +93,7 @@ export function SmartHelperSection() {
               <Bot size={20} className="text-primary" />
             </div>
             <div>
-              <h2 className="text-lg sm:text-2xl font-bold">Vireon Bro</h2>
+              <h2 className="text-lg sm:text-2xl font-bold font-azonix tracking-wider">Vireon Bro</h2>
               <p className="text-xs sm:text-sm text-muted-foreground">
                 Your CSE study buddy
               </p>

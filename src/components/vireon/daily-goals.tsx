@@ -263,7 +263,7 @@ export function DailyGoalsSection() {
           <Target className="text-emerald-500" size={24} />
         </div>
         <div>
-          <h2 className="text-2xl font-bold text-foreground">Daily Goals</h2>
+          <h2 className="text-2xl font-bold text-foreground font-azonix tracking-wider">Daily Goals</h2>
           <p className="text-sm text-muted-foreground">
             Stay disciplined, one day at a time
           </p>

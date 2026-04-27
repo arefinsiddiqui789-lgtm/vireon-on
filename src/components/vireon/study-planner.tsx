@@ -169,7 +169,7 @@ export function StudyPlannerSection() {
             <BookOpen size={28} />
           </div>
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight font-azonix tracking-wider">
               Study Planner
             </h1>
             <p className="text-sm text-muted-foreground">
@@ -537,7 +537,7 @@ export function StudyPlannerSection() {
       >
         <div className="flex items-center gap-2 mb-4">
           <GraduationCap size={20} className="text-primary" />
-          <h2 className="text-lg font-semibold">Subject Progress</h2>
+          <h2 className="text-lg font-semibold font-azonix tracking-wider">Subject Progress</h2>
         </div>
         {uniqueSubjects.length === 0 ? (
           <Card className="border-dashed">

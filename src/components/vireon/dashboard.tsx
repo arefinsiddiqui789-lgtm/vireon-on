@@ -230,7 +230,7 @@ export function DashboardSection() {
             </div>
 
             {/* Main title */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-3">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-3 font-azonix tracking-wider">
               Welcome back to{" "}
               <span className="vireon-text-glow bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                 Vireon
@@ -264,7 +264,7 @@ export function DashboardSection() {
           className="flex items-center gap-2 mb-4"
         >
           <Zap size={18} className="text-primary" />
-          <h2 className="text-lg font-semibold">Today&apos;s Overview</h2>
+          <h2 className="text-lg font-semibold font-azonix tracking-wider">Today&apos;s Overview</h2>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
