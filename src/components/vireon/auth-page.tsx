@@ -389,7 +389,7 @@ export function AuthPage() {
                       <Input
                         id="signup-name"
                         type="text"
-                        placeholder="Arefin Siddiqui"
+                        placeholder="Enter your name"
                         value={signupName}
                         onChange={(e) => setSignupName(e.target.value)}
                         className="pl-10 h-11"
