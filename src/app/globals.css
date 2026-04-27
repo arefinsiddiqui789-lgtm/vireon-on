@@ -1,0 +1,262 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-poppins), 'Poppins', sans-serif;
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-vireon: var(--vireon);
+  --color-vireon-foreground: var(--vireon-foreground);
+  --color-vireon-glow: var(--vireon-glow);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.75rem;
+  /* Light mode */
+  --background: #f0f4fa;
+  --foreground: #0f1729;
+  --card: #ffffff;
+  --card-foreground: #0f1729;
+  --popover: #ffffff;
+  --popover-foreground: #0f1729;
+  --primary: #3b6dfa;
+  --primary-foreground: #ffffff;
+  --secondary: #e8edf5;
+  --secondary-foreground: #1a2540;
+  --muted: #e4e9f2;
+  --muted-foreground: #5a6a85;
+  --accent: #dce3f0;
+  --accent-foreground: #1a2540;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #cdd5e3;
+  --input: #cdd5e3;
+  --ring: #3b6dfa;
+  --chart-1: #3b6dfa;
+  --chart-2: #5b8def;
+  --chart-3: #2a4fc4;
+  --chart-4: #7ba4f7;
+  --chart-5: #1e3a8a;
+  --vireon: #3b6dfa;
+  --vireon-foreground: #ffffff;
+  --vireon-glow: #3b6dfa30;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1a2540;
+  --sidebar-primary: #3b6dfa;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e8edf5;
+  --sidebar-accent-foreground: #1a2540;
+  --sidebar-border: #dce3f0;
+  --sidebar-ring: #3b6dfa;
+}
+
+.dark {
+  --background: #000000;
+  --foreground: #e8edf5;
+  --card: #0a0f1a;
+  --card-foreground: #e8edf5;
+  --popover: #0a0f1a;
+  --popover-foreground: #e8edf5;
+  --primary: #3b6dfa;
+  --primary-foreground: #ffffff;
+  --secondary: #0d1525;
+  --secondary-foreground: #c8d3e8;
+  --muted: #0d1525;
+  --muted-foreground: #6b7fa3;
+  --accent: #111b2e;
+  --accent-foreground: #c8d3e8;
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: #1a2540;
+  --input: #1a2540;
+  --ring: #3b6dfa;
+  --chart-1: #3b6dfa;
+  --chart-2: #5b8def;
+  --chart-3: #2a4fc4;
+  --chart-4: #7ba4f7;
+  --chart-5: #1e3a8a;
+  --vireon: #3b6dfa;
+  --vireon-foreground: #ffffff;
+  --vireon-glow: #3b6dfa25;
+  --sidebar: #060d1b;
+  --sidebar-foreground: #c8d3e8;
+  --sidebar-primary: #3b6dfa;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #0f1a2e;
+  --sidebar-accent-foreground: #c8d3e8;
+  --sidebar-border: #132040;
+  --sidebar-ring: #3b6dfa;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-poppins), 'Poppins', sans-serif;
+  }
+  /* Prevent iOS auto-zoom on input focus — font-size must be >= 16px */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="number"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a2540;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2a3a5a;
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background: #cdd5e3;
+}
+
+.light ::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+/* Vireon glow effects */
+.vireon-glow {
+  box-shadow: 0 0 20px var(--vireon-glow), 0 0 40px #3b6dfa10;
+}
+
+.vireon-text-glow {
+  text-shadow: 0 0 20px var(--vireon-glow);
+}
+
+/* Smooth transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Glass morphism */
+.glass {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Animated gradient background */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animated-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Pulse glow */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px var(--vireon-glow); }
+  50% { box-shadow: 0 0 20px var(--vireon-glow), 0 0 40px #3b6dfa10; }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Grid pattern */
+.grid-pattern {
+  background-image: 
+    linear-gradient(#00000008 1px, transparent 1px),
+    linear-gradient(90deg, #00000008 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.dark .grid-pattern {
+  background-image: 
+    linear-gradient(#ffffff03 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff03 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Code editor styles */
+.cm-editor {
+  font-size: 14px !important;
+}
+
+.cm-editor .cm-gutters {
+  border-right: none !important;
+}
+
+/* Particle dots */
+@keyframes particle-drift {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100px) translateX(20px); opacity: 0; }
+}
+
+.particle {
+  animation: particle-drift 4s ease-in-out infinite;
+}
