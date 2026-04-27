@@ -98,11 +98,11 @@ export function Sidebar() {
           <div className="flex items-center gap-3">
             <div className="relative w-14 h-14 overflow-hidden flex items-center justify-center shrink-0">
               <Image
-                src="/logo.svg"
+                src="/logo.png"
                 alt="Vireon Logo"
                 width={50}
                 height={50}
-                className="object-contain filter auto-invert-logo"
+                className="object-contain"
               />
             </div>
             <div>

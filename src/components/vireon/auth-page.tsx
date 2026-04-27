@@ -163,11 +163,11 @@ export function AuthPage() {
             <div className="flex items-center gap-5 mb-10">
               <div className="w-20 h-20 overflow-hidden flex items-center justify-center shrink-0">
                 <Image
-                  src="/logo.svg"
+                  src="/logo.png"
                   alt="Vireon Logo"
                   width={80}
                   height={80}
-                  className="object-contain filter auto-invert-logo"
+                  className="object-contain"
                 />
               </div>
               <div>
@@ -226,11 +226,11 @@ export function AuthPage() {
         >
           <div className="w-24 h-24 overflow-hidden flex items-center justify-center mb-4">
             <Image
-              src="/logo.svg"
+              src="/logo.png"
               alt="Vireon Logo"
               width={96}
               height={96}
-              className="object-contain filter auto-invert-logo"
+              className="object-contain"
             />
           </div>
           <h1 className="text-2xl font-bold text-foreground font-azonix tracking-wider">Vireon</h1>
