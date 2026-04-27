@@ -158,9 +158,9 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.8 }}
-          className="text-muted-foreground/60 text-xs sm:text-sm mt-5 sm:mt-6"
+          className="text-muted-foreground/60 text-xs sm:text-sm mt-5 sm:mt-6 text-center"
         >
-          Preparing your workspace...
+          {session?.user?.name ? `Preparing ${session.user.name.split(" ")[0]}'s workspace...` : "Preparing your workspace..."}
         </motion.p>
 
         {/* Loading dots */}

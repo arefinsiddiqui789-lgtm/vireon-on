@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useMemo } from "react";
+import { useSession } from "next-auth/react";
 
 // Get current time in Bangladesh (UTC+6)
 function getBdNow(): Date {
@@ -102,6 +103,7 @@ interface OverviewCardData {
 }
 
 export function DashboardSection() {
+  const { data: session } = useSession();
   const {
     studyTasks,
     dailyGoals,
@@ -222,7 +224,7 @@ export function DashboardSection() {
             <div className="flex items-center gap-3 mb-4">
               {greetingIcon}
               <span className="text-lg font-medium text-muted-foreground">
-                {greeting}
+                {greeting}, {session?.user?.name?.split(" ")[0] || "User"}
               </span>
               <Badge variant="outline" className="text-xs border-primary/30 text-primary">
                 {day}
@@ -231,7 +233,7 @@ export function DashboardSection() {
 
             {/* Main title */}
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-3 font-azonix tracking-wider">
-              Welcome back to{" "}
+              {session?.user?.name ? `Welcome back, ${session.user.name.split(" ")[0]}!` : "Welcome back to"}{" "}
               <span className="vireon-text-glow bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                 Vireon
               </span>
