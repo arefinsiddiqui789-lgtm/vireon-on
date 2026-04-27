@@ -370,7 +370,7 @@ export function OverviewSection() {
                     className={cn(
                       "aspect-square rounded-md transition-all duration-200 relative group cursor-default flex items-center justify-center",
                       isCurrentDay && "ring-2 ring-primary ring-offset-1 ring-offset-background",
-                      !snapshot || completedItems === 0 ? "bg-muted/30" : "",
+                      (!snapshot || completedItems === 0) ? "bg-rose-500/20 text-rose-600 dark:text-rose-400" : "",
                       completedItems === 1 && "bg-amber-500/30 text-amber-600 dark:text-amber-400",
                       completedItems === 2 && "bg-emerald-500/40 text-emerald-600 dark:text-emerald-400",
                       completedItems >= 3 && "bg-primary shadow-[0_0_10px_rgba(59,130,246,0.3)] text-white"
@@ -395,7 +395,7 @@ export function OverviewSection() {
             </div>
             <div className="flex flex-wrap items-center justify-end gap-3 mt-4 text-[10px] font-medium text-muted-foreground">
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 rounded-sm bg-muted/30" />
+                <div className="w-3 h-3 rounded-sm bg-rose-500/20" />
                 <span>Empty (0)</span>
               </div>
               <div className="flex items-center gap-1">
