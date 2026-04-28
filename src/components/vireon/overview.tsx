@@ -5,6 +5,7 @@ import { useVireonStore, type DaySnapshot, DAYS_OF_WEEK } from "@/store/vireon-s
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
+import Script from "next/script";
 import {
   Card,
   CardHeader,
@@ -94,12 +95,11 @@ export function OverviewSection() {
     const toastId = toast.loading("Generating your productivity report...");
     
     try {
-      // Load jsPDF from CDN dynamically
+      // Check if jspdf is available from the next/script
       if (!(window as any).jspdf) {
-        const script = document.createElement("script");
-        script.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
-        document.head.appendChild(script);
-        await new Promise((resolve) => (script.onload = resolve));
+        toast.error("PDF generator is not ready. Please try again in a moment.", { id: toastId });
+        setIsGeneratingPDF(false);
+        return;
       }
 
       const { jsPDF } = (window as any).jspdf;
@@ -290,6 +290,7 @@ export function OverviewSection() {
 
   return (
     <div className="p-4 md:p-6 lg:p-8 max-w-5xl mx-auto space-y-6">
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" strategy="lazyOnload" />
       {/* Header */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -368,7 +369,7 @@ export function OverviewSection() {
                   <div
                     key={date}
                     className={cn(
-                      "aspect-square rounded-md transition-all duration-200 relative group cursor-default flex items-center justify-center",
+                      "aspect-square w-full rounded-md transition-all duration-200 relative group cursor-default flex items-center justify-center min-w-0",
                       isCurrentDay && "ring-2 ring-primary ring-offset-1 ring-offset-background",
                       (!snapshot || completedItems === 0) ? "bg-rose-500/20 text-rose-600 dark:text-rose-400" : "",
                       completedItems === 1 && "bg-amber-500/30 text-amber-600 dark:text-amber-400",
@@ -682,10 +683,10 @@ function DaySnapshotCard({
             </div>
 
             {/* Mobile stats row */}
-            <div className="flex sm:hidden items-center gap-3 mt-2 ml-7 text-xs text-muted-foreground">
-              <span className="flex items-center gap-1"><BookOpen size={11} /> {snapshot.studyTasks.filter((t) => t.completed).length}/{snapshot.studyTasks.length}</span>
-              <span className="flex items-center gap-1"><Target size={11} /> {snapshot.dailyGoals.filter((g) => g.completed).length}/{snapshot.dailyGoals.length}</span>
-              <span className="flex items-center gap-1"><Dumbbell size={11} /> {snapshot.gymExercises.filter((e) => e.completed).length}/{snapshot.gymExercises.length}</span>
+            <div className="flex sm:hidden items-center gap-3 mt-2 ml-7 text-xs text-muted-foreground flex-wrap">
+              <span className="flex shrink-0 items-center gap-1"><BookOpen size={11} className="shrink-0" /> {snapshot.studyTasks.filter((t) => t.completed).length}/{snapshot.studyTasks.length}</span>
+              <span className="flex shrink-0 items-center gap-1"><Target size={11} className="shrink-0" /> {snapshot.dailyGoals.filter((g) => g.completed).length}/{snapshot.dailyGoals.length}</span>
+              <span className="flex shrink-0 items-center gap-1"><Dumbbell size={11} className="shrink-0" /> {snapshot.gymExercises.filter((e) => e.completed).length}/{snapshot.gymExercises.length}</span>
             </div>
           </CardContent>
         </button>
@@ -703,7 +704,7 @@ function DaySnapshotCard({
               <div className="px-4 pb-4 pt-0 border-t border-border/50">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
                   {/* Study Tasks */}
-                  <div className="space-y-2">
+                  <div className="space-y-2 min-w-0">
                     <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
                       <BookOpen size={13} /> Study Tasks
                     </div>
@@ -711,14 +712,14 @@ function DaySnapshotCard({
                       <p className="text-xs text-muted-foreground/50 pl-5">No tasks</p>
                     ) : (
                       snapshot.studyTasks.map((task, i) => (
-                        <div key={i} className="flex items-center gap-2 pl-1">
+                        <div key={i} className="flex items-center gap-2 pl-1 min-w-0">
                           {task.completed ? (
                             <Check size={12} className="text-emerald-500 shrink-0" />
                           ) : (
                             <Circle size={12} className="text-muted-foreground/30 shrink-0" />
                           )}
                           <span className={cn(
-                            "text-xs truncate",
+                            "text-xs truncate flex-1 min-w-0",
                             task.completed ? "text-foreground" : "text-muted-foreground line-through"
                           )}>
                             {task.title}
@@ -732,7 +733,7 @@ function DaySnapshotCard({
                   </div>
 
                   {/* Daily Goals */}
-                  <div className="space-y-2">
+                  <div className="space-y-2 min-w-0">
                     <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-600 dark:text-amber-400">
                       <Target size={13} /> Daily Goals
                     </div>
@@ -740,14 +741,14 @@ function DaySnapshotCard({
                       <p className="text-xs text-muted-foreground/50 pl-5">No goals</p>
                     ) : (
                       snapshot.dailyGoals.map((goal, i) => (
-                        <div key={i} className="flex items-center gap-2 pl-1">
+                        <div key={i} className="flex items-center gap-2 pl-1 min-w-0">
                           {goal.completed ? (
                             <Check size={12} className="text-amber-500 shrink-0" />
                           ) : (
                             <Circle size={12} className="text-muted-foreground/30 shrink-0" />
                           )}
                           <span className={cn(
-                            "text-xs truncate",
+                            "text-xs truncate flex-1 min-w-0",
                             goal.completed ? "text-foreground" : "text-muted-foreground line-through"
                           )}>
                             {goal.title}
@@ -758,7 +759,7 @@ function DaySnapshotCard({
                   </div>
 
                   {/* Gym Exercises */}
-                  <div className="space-y-2">
+                  <div className="space-y-2 min-w-0">
                     <div className="flex items-center gap-1.5 text-xs font-semibold text-rose-600 dark:text-rose-400">
                       <Dumbbell size={13} /> Gym Exercises
                     </div>
@@ -766,14 +767,14 @@ function DaySnapshotCard({
                       <p className="text-xs text-muted-foreground/50 pl-5">No exercises</p>
                     ) : (
                       snapshot.gymExercises.map((ex, i) => (
-                        <div key={i} className="flex items-center gap-2 pl-1">
+                        <div key={i} className="flex items-center gap-2 pl-1 min-w-0">
                           {ex.completed ? (
                             <Check size={12} className="text-rose-500 shrink-0" />
                           ) : (
                             <Circle size={12} className="text-muted-foreground/30 shrink-0" />
                           )}
                           <span className={cn(
-                            "text-xs truncate",
+                            "text-xs truncate flex-1 min-w-0",
                             ex.completed ? "text-foreground" : "text-muted-foreground line-through"
                           )}>
                             {ex.name}
